@@ -5,11 +5,11 @@ import { CitySelector } from "@/components/cities/city-selector"
 
 export default function CitiesPage() {
   return (
-    <main className="min-h-svh bg-background">
+    <main className="min-h-svh bg-surface-background">
       <header className="border-b border-border">
         <div className="mx-auto flex max-w-5xl items-center gap-2 px-5 py-4 sm:px-8">
           <Link href="/cities" className="flex items-center gap-2">
-            <span className="flex size-9 items-center justify-center rounded-lg bg-primary text-primary-foreground">
+            <span className="flex size-9 items-center justify-center rounded-lg bg-brand-secondary text-surface-background">
               <Clapperboard className="size-5" aria-hidden="true" />
             </span>
             <span className="text-lg font-semibold tracking-tight text-foreground">

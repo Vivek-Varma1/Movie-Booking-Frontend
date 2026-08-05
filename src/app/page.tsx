@@ -18,11 +18,11 @@ export default function LoginPage() {
   }
 
   return (
-    <main className="flex min-h-svh flex-col bg-background lg:flex-row">
+    <main className="flex min-h-svh flex-col bg-surface-background lg:flex-row">
       {/* Brand / marketing panel */}
-      <section className="relative hidden overflow-hidden bg-card lg:flex lg:w-1/2 lg:flex-col lg:justify-between lg:p-12">
+      <section className="relative hidden overflow-hidden bg-surface-primary lg:flex lg:w-1/2 lg:flex-col lg:justify-between lg:p-12">
         <div className="flex items-center gap-2 text-foreground">
-          <span className="flex size-9 items-center justify-center rounded-lg bg-primary text-primary-foreground">
+          <span className="flex size-9 items-center justify-center rounded-lg bg-brand-secondary text-surface-background">
             <Clapperboard className="size-5" aria-hidden="true" />
           </span>
           <span className="text-lg font-semibold tracking-tight">Cineverse</span>
@@ -44,7 +44,7 @@ export default function LoginPage() {
               { icon: CheckCircle2, text: "Passwordless, secure OTP login" },
             ].map(({ icon: Icon, text }) => (
               <li key={text} className="flex items-center gap-3">
-                <span className="flex size-9 items-center justify-center rounded-lg bg-primary/15 text-primary">
+                <span className="flex size-9 items-center justify-center rounded-lg bg-brand-secondary/15 text-brand-secondary">
                   <Icon className="size-5" aria-hidden="true" />
                 </span>
                 <span className="text-sm font-medium text-foreground">{text}</span>
@@ -63,7 +63,7 @@ export default function LoginPage() {
         <div className="w-full max-w-md">
           {/* Mobile brand mark */}
           <div className="mb-8 flex items-center gap-2 lg:hidden">
-            <span className="flex size-9 items-center justify-center rounded-lg bg-primary text-primary-foreground">
+            <span className="flex size-9 items-center justify-center rounded-lg bg-brand-secondary text-surface-background">
               <Clapperboard className="size-5" aria-hidden="true" />
             </span>
             <span className="text-lg font-semibold tracking-tight text-foreground">
@@ -72,8 +72,8 @@ export default function LoginPage() {
           </div>
 
           {user ? (
-            <div className="flex flex-col items-center gap-4 rounded-xl border border-border bg-card p-8 text-center">
-              <span className="flex size-14 items-center justify-center rounded-full bg-primary/15 text-primary">
+            <div className="flex flex-col items-center gap-4 rounded-xl border border-border bg-surface-primary p-8 text-center">
+              <span className="flex size-14 items-center justify-center rounded-full bg-brand-secondary/15 text-brand-secondary">
                 <CheckCircle2 className="size-7" aria-hidden="true" />
               </span>
               <div className="flex flex-col gap-1">
@@ -84,7 +84,7 @@ export default function LoginPage() {
                   You&apos;re signed in as {user.email}
                 </p>
               </div>
-              <span className="rounded-full bg-secondary px-3 py-1 text-xs font-medium text-secondary-foreground">
+              <span className="rounded-full bg-surface-secondary px-3 py-1 text-xs font-medium text-white-soft">
                 {user.role === "ROLE_ADMIN" ? "Administrator" : "Member"}
               </span>
               <p className="flex items-center gap-2 text-sm text-muted-foreground">
@@ -103,14 +103,14 @@ export default function LoginPage() {
 
               <OtpLoginForm onSuccess={handleSuccess} />
 
-              <div className="flex flex-col gap-3 rounded-xl border border-border bg-secondary/40 p-4 text-sm text-muted-foreground">
+              <div className="flex flex-col gap-3 rounded-xl border border-border bg-surface-secondary/70 p-4 text-sm text-muted-foreground">
                 <p>
                   You can skip sign in for now and browse cities, movies, showtimes,
                   and seats.
                 </p>
                 <Link
                   href="/cities"
-                  className="inline-flex items-center justify-center rounded-lg border border-border bg-background px-4 py-2 font-medium text-foreground transition-colors hover:bg-secondary"
+                  className="inline-flex items-center justify-center rounded-lg border border-border bg-surface-secondary px-4 py-2 font-medium text-foreground transition-colors hover:bg-surface-hover"
                 >
                   Skip and browse
                 </Link>

@@ -28,7 +28,7 @@ export default function SeatsPage() {
         <Suspense
           fallback={
             <div className="flex min-h-[40vh] items-center justify-center">
-              <Loader2 className="size-8 animate-spin text-primary" />
+              <Loader2 className="size-8 animate-spin text-brand-secondary" />
             </div>
           }
         >

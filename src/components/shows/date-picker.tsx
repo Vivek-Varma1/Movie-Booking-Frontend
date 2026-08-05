@@ -25,10 +25,10 @@ export function DatePicker({ dates, selected, onSelect }: DatePickerProps) {
             key={d}
             type="button"
             onClick={() => onSelect(d)}
-            className={`flex min-w-[4.5rem] flex-col items-center gap-0.5 rounded-xl border px-3 py-2.5 text-center transition-all ${
+            className={`flex min-w-18 flex-col items-center gap-0.5 rounded-xl border px-3 py-2.5 text-center transition-all ${
               isActive
-                ? "border-primary bg-primary text-primary-foreground shadow-sm"
-                : "border-border bg-card text-muted-foreground hover:border-primary/40 hover:text-foreground"
+                ? "border-brand-secondary bg-brand-secondary text-surface-background shadow-sm"
+                : "border-border bg-surface-primary text-muted-foreground hover:border-brand-secondary/50 hover:bg-surface-hover hover:text-foreground"
             }`}
           >
             <span className="text-[11px] font-medium uppercase">{day}</span>

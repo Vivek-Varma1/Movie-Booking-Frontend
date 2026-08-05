@@ -72,15 +72,15 @@ function MovieShowsContent() {
 
       {datesLoading ? (
         <div className="flex min-h-[20vh] items-center justify-center">
-          <Loader2 className="size-8 animate-spin text-primary" />
+          <Loader2 className="size-8 animate-spin text-brand-secondary" />
         </div>
       ) : datesError ? (
-        <div className="flex flex-col items-center gap-4 rounded-xl border border-border bg-card p-10 text-center">
+        <div className="flex flex-col items-center gap-4 rounded-xl border border-border bg-surface-primary p-10 text-center">
           <AlertCircle className="size-8 text-destructive" />
           <p className="text-sm text-muted-foreground">Failed to load show dates.</p>
         </div>
       ) : dates && dates.length === 0 ? (
-        <div className="flex flex-col items-center gap-3 rounded-xl border border-border bg-card p-10 text-center">
+        <div className="flex flex-col items-center gap-3 rounded-xl border border-border bg-surface-primary p-10 text-center">
           <p className="font-medium text-foreground">No shows available</p>
           <p className="text-sm text-muted-foreground">
             This movie doesn&apos;t have any scheduled shows in your city right now.
@@ -104,10 +104,10 @@ function MovieShowsContent() {
 
           {showsLoading ? (
             <div className="flex min-h-[20vh] items-center justify-center">
-              <Loader2 className="size-6 animate-spin text-primary" />
+              <Loader2 className="size-6 animate-spin text-brand-secondary" />
             </div>
           ) : showsError ? (
-            <div className="flex flex-col items-center gap-3 rounded-xl border border-border bg-card p-8 text-center">
+            <div className="flex flex-col items-center gap-3 rounded-xl border border-border bg-surface-primary p-8 text-center">
               <AlertCircle className="size-6 text-destructive" />
               <p className="text-sm text-muted-foreground">Failed to load shows.</p>
               <Button variant="secondary" size="sm" onClick={() => mutateShows()}>
@@ -132,7 +132,7 @@ export default function MovieShowsPage() {
         <Suspense
           fallback={
             <div className="flex min-h-[40vh] items-center justify-center">
-              <Loader2 className="size-8 animate-spin text-primary" />
+              <Loader2 className="size-8 animate-spin text-brand-secondary" />
             </div>
           }
         >

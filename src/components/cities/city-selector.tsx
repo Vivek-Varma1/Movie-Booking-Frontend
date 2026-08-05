@@ -53,18 +53,18 @@ export function CitySelector() {
           onChange={(e) => setQuery(e.target.value)}
           placeholder="Search for your city…"
           aria-label="Search cities"
-          className="h-12 w-full rounded-lg border border-border bg-card pl-11 pr-4 text-base text-foreground outline-none transition-colors placeholder:text-muted-foreground focus:border-primary focus:ring-2 focus:ring-primary/40"
+          className="h-12 w-full rounded-lg border border-border bg-surface-primary pl-11 pr-4 text-base text-foreground outline-none transition-colors placeholder:text-muted-foreground focus:border-info focus:ring-2 focus:ring-info/40"
         />
       </div>
 
       {isLoading ? (
         <div className="grid grid-cols-2 gap-4 sm:grid-cols-3 lg:grid-cols-4">
           {Array.from({ length: 8 }).map((_, i) => (
-            <div key={i} className="h-28 animate-pulse rounded-xl border border-border bg-card" />
+            <div key={i} className="h-28 animate-pulse rounded-xl border border-border bg-surface-primary" />
           ))}
         </div>
       ) : error ? (
-        <div className="flex flex-col items-center gap-4 rounded-xl border border-border bg-card p-10 text-center">
+        <div className="flex flex-col items-center gap-4 rounded-xl border border-border bg-surface-primary p-10 text-center">
           <span className="flex size-12 items-center justify-center rounded-full bg-destructive/15 text-destructive">
             <AlertCircle className="size-6" aria-hidden="true" />
           </span>
@@ -84,8 +84,8 @@ export function CitySelector() {
           </Button>
         </div>
       ) : filtered.length === 0 ? (
-        <div className="flex flex-col items-center gap-3 rounded-xl border border-border bg-card p-10 text-center">
-          <span className="flex size-12 items-center justify-center rounded-full bg-secondary text-muted-foreground">
+        <div className="flex flex-col items-center gap-3 rounded-xl border border-border bg-surface-primary p-10 text-center">
+          <span className="flex size-12 items-center justify-center rounded-full bg-surface-secondary text-white-soft">
             <Building2 className="size-6" aria-hidden="true" />
           </span>
           <p className="text-sm text-muted-foreground">
@@ -102,9 +102,9 @@ export function CitySelector() {
                   type="button"
                   onClick={() => handleSelect(city)}
                   disabled={pendingId !== null}
-                  className="group flex h-28 w-full flex-col items-center justify-center gap-3 rounded-xl border border-border bg-card p-4 text-center transition-all hover:border-primary hover:bg-primary/5 focus:outline-none focus-visible:border-primary focus-visible:ring-2 focus-visible:ring-primary/40 disabled:cursor-not-allowed disabled:opacity-60"
+                  className="group flex h-28 w-full flex-col items-center justify-center gap-3 rounded-xl border border-border bg-surface-primary p-4 text-center transition-all hover:border-brand-secondary hover:bg-surface-hover focus:outline-none focus-visible:border-info focus-visible:ring-2 focus-visible:ring-info/40 disabled:cursor-not-allowed disabled:opacity-60"
                 >
-                  <span className="flex size-10 items-center justify-center rounded-full bg-primary/15 text-primary transition-colors group-hover:bg-primary group-hover:text-primary-foreground">
+                  <span className="flex size-10 items-center justify-center rounded-full bg-brand-secondary/15 text-brand-secondary transition-colors group-hover:bg-brand-secondary group-hover:text-surface-background">
                     {isPending ? (
                       <Loader2 className="size-5 animate-spin" aria-hidden="true" />
                     ) : (

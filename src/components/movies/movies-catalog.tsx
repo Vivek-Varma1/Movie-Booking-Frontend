@@ -47,11 +47,11 @@ export function MoviesCatalog({
         <button
           type="button"
           onClick={() => router.push("/cities")}
-          className="inline-flex w-fit items-center gap-1.5 rounded-full border border-border bg-card px-3 py-1 text-sm text-muted-foreground transition-colors hover:text-foreground"
+          className="inline-flex w-fit items-center gap-1.5 rounded-full border border-border bg-surface-primary px-3 py-1 text-sm text-muted-foreground transition-colors hover:border-brand-secondary hover:text-foreground"
         >
-          <MapPin className="size-4 text-primary" aria-hidden="true" />
+          <MapPin className="size-4 text-brand-secondary" aria-hidden="true" />
           {cityName || `City #${cityId}`}
-          <span className="text-primary">Change</span>
+          <span className="text-brand-secondary">Change</span>
         </button>
         <div>
           <h1 className="text-balance text-2xl font-bold tracking-tight text-foreground sm:text-3xl">
@@ -76,7 +76,7 @@ export function MoviesCatalog({
             onChange={(e) => setQuery(e.target.value)}
             placeholder="Search movies…"
             aria-label="Search movies"
-            className="w-full rounded-lg border border-border bg-card py-2 pl-9 pr-3 text-sm text-foreground outline-none transition-colors placeholder:text-muted-foreground focus:border-primary"
+            className="w-full rounded-lg border border-border bg-surface-primary py-2 pl-9 pr-3 text-sm text-foreground outline-none transition-colors placeholder:text-muted-foreground focus:border-info focus:ring-2 focus:ring-info/40"
           />
         </div>
         <div className="flex flex-wrap gap-2">
@@ -87,8 +87,8 @@ export function MoviesCatalog({
               onClick={() => setGenre(g)}
               className={`rounded-full border px-3 py-1.5 text-sm transition-colors ${
                 genre === g
-                  ? "border-primary bg-primary text-primary-foreground"
-                  : "border-border bg-card text-muted-foreground hover:text-foreground"
+                  ? "border-brand-secondary bg-brand-secondary text-surface-background"
+                  : "border-border bg-surface-primary text-muted-foreground hover:border-brand-secondary hover:text-foreground"
               }`}
             >
               {g}
@@ -131,11 +131,11 @@ function MovieGridSkeleton() {
   return (
     <div className="grid grid-cols-2 gap-4 sm:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5">
       {Array.from({ length: 10 }).map((_, i) => (
-        <div key={i} className="overflow-hidden rounded-xl border border-border bg-card">
-          <div className="animate-pulse bg-secondary" style={{ aspectRatio: "2 / 3" }} />
+        <div key={i} className="overflow-hidden rounded-xl border border-border bg-surface-primary">
+          <div className="animate-pulse bg-surface-secondary" style={{ aspectRatio: "2 / 3" }} />
           <div className="space-y-2 p-3">
-            <div className="h-4 w-3/4 animate-pulse rounded bg-secondary" />
-            <div className="h-3 w-1/2 animate-pulse rounded bg-secondary" />
+            <div className="h-4 w-3/4 animate-pulse rounded bg-surface-secondary" />
+            <div className="h-3 w-1/2 animate-pulse rounded bg-surface-secondary" />
           </div>
         </div>
       ))}
@@ -153,17 +153,17 @@ function ErrorState({
   retrying: boolean
 }) {
   return (
-    <div className="flex flex-col items-center gap-3 rounded-xl border border-border bg-card px-6 py-12 text-center">
+    <div className="flex flex-col items-center gap-3 rounded-xl border border-border bg-surface-primary px-6 py-12 text-center">
       <AlertCircle className="size-8 text-destructive" aria-hidden="true" />
       <div>
-        <p className="font-medium text-card-foreground">Couldn&apos;t load movies</p>
+        <p className="font-medium text-foreground">Couldn&apos;t load movies</p>
         <p className="mt-1 text-sm text-muted-foreground">{message}</p>
       </div>
       <button
         type="button"
         onClick={onRetry}
         disabled={retrying}
-        className="inline-flex items-center gap-2 rounded-lg bg-primary px-4 py-2 text-sm font-medium text-primary-foreground transition-opacity hover:opacity-90 disabled:opacity-60"
+        className="inline-flex items-center gap-2 rounded-lg bg-brand-secondary px-4 py-2 text-sm font-medium text-surface-background transition-opacity hover:bg-brand-premium disabled:opacity-60"
       >
         <RefreshCw className={`size-4 ${retrying ? "animate-spin" : ""}`} aria-hidden="true" />
         Try again
@@ -174,8 +174,8 @@ function ErrorState({
 
 function EmptyState({ hasMovies }: { hasMovies: boolean }) {
   return (
-    <div className="flex flex-col items-center gap-2 rounded-xl border border-border bg-card px-6 py-12 text-center">
-      <p className="font-medium text-card-foreground">
+    <div className="flex flex-col items-center gap-2 rounded-xl border border-border bg-surface-primary px-6 py-12 text-center">
+      <p className="font-medium text-foreground">
         {hasMovies ? "No movies match your filters" : "No movies playing here yet"}
       </p>
       <p className="text-sm text-muted-foreground">

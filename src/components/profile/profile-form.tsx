@@ -54,14 +54,14 @@ export function ProfileForm() {
   if (isLoading) {
     return (
       <div className="flex min-h-[30vh] items-center justify-center">
-        <Loader2 className="size-8 animate-spin text-primary" />
+        <Loader2 className="size-8 animate-spin text-brand-secondary" />
       </div>
     )
   }
 
   if (error) {
     return (
-      <div className="flex flex-col items-center gap-4 rounded-xl border border-border bg-card p-10 text-center">
+      <div className="flex flex-col items-center gap-4 rounded-xl border border-border bg-surface-primary p-10 text-center">
         <AlertCircle className="size-8 text-destructive" />
         <p className="text-sm text-muted-foreground">
           {error instanceof ApiError
@@ -77,19 +77,19 @@ export function ProfileForm() {
   return (
     <div className="mx-auto max-w-lg">
       <div className="mb-8 flex flex-col items-center gap-4">
-        <span className="flex size-20 items-center justify-center rounded-full bg-primary/15 text-primary">
+        <span className="flex size-20 items-center justify-center rounded-full bg-brand-secondary/15 text-brand-secondary">
           <User className="size-10" />
         </span>
         <div className="text-center">
           <h1 className="text-2xl font-bold text-foreground">Your Profile</h1>
           <p className="mt-1 text-sm text-muted-foreground">{user.email}</p>
-          <span className="mt-2 inline-block rounded-full bg-secondary px-3 py-1 text-xs font-medium text-secondary-foreground">
+          <span className="mt-2 inline-block rounded-full bg-surface-secondary px-3 py-1 text-xs font-medium text-white-soft">
             {user.role === "ROLE_ADMIN" ? "Administrator" : "Member"}
           </span>
         </div>
       </div>
 
-      <form onSubmit={handleSave} className="flex flex-col gap-5 rounded-xl border border-border bg-card p-6">
+      <form onSubmit={handleSave} className="flex flex-col gap-5 rounded-xl border border-border bg-surface-primary p-6">
         <div className="flex flex-col gap-2">
           <label htmlFor="name" className="text-sm font-medium text-foreground">
             Full Name
@@ -100,7 +100,7 @@ export function ProfileForm() {
             value={name}
             onChange={(e) => setName(e.target.value)}
             placeholder="John Doe"
-            className="h-11 w-full rounded-lg border border-border bg-background px-4 text-sm text-foreground outline-none transition-colors placeholder:text-muted-foreground focus:border-primary focus:ring-2 focus:ring-primary/40"
+            className="h-11 w-full rounded-lg border border-border bg-surface-primary px-4 text-sm text-foreground outline-none transition-colors placeholder:text-muted-foreground focus:border-info focus:ring-2 focus:ring-info/40"
           />
         </div>
 
@@ -114,7 +114,7 @@ export function ProfileForm() {
             value={phone}
             onChange={(e) => setPhone(e.target.value)}
             placeholder="+1234567890"
-            className="h-11 w-full rounded-lg border border-border bg-background px-4 text-sm text-foreground outline-none transition-colors placeholder:text-muted-foreground focus:border-primary focus:ring-2 focus:ring-primary/40"
+            className="h-11 w-full rounded-lg border border-border bg-surface-primary px-4 text-sm text-foreground outline-none transition-colors placeholder:text-muted-foreground focus:border-info focus:ring-2 focus:ring-info/40"
           />
         </div>
 
@@ -122,7 +122,7 @@ export function ProfileForm() {
           <p className="text-sm text-destructive">{saveError}</p>
         )}
         {success && (
-          <p className="text-sm text-emerald-600">Profile updated successfully!</p>
+          <p className="text-sm text-success">Profile updated successfully!</p>
         )}
 
         <Button type="submit" disabled={saving} className="h-11">

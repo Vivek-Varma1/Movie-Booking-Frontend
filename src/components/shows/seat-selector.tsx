@@ -32,43 +32,42 @@ const CATEGORY_STYLES: Record<
 > = {
   REGULAR: {
     label: "Regular",
-    chip: "bg-emerald-500/10 text-emerald-700 dark:text-emerald-300 border-emerald-200 dark:border-emerald-900",
-    swatch: "bg-emerald-500",
-    selected: "bg-emerald-500 text-white ring-emerald-300",
-    border: "border-emerald-400",
+    chip: "border border-border bg-surface-secondary text-white-soft",
+    swatch: "bg-white-soft",
+    selected: "bg-success text-white ring-success/30",
+    border: "border-border",
   },
   PREMIUM: {
     label: "Premium",
-    chip: "bg-blue-500/10 text-blue-700 dark:text-blue-300 border-blue-200 dark:border-blue-900",
-    swatch: "bg-blue-500",
-    selected: "bg-blue-500 text-white ring-blue-300",
-    border: "border-blue-400",
+    chip: "border border-info/30 bg-info/10 text-info",
+    swatch: "bg-info",
+    selected: "bg-success text-white ring-success/30",
+    border: "border-info/60",
   },
   VIP: {
     label: "VIP",
-    chip: "bg-amber-500/10 text-amber-700 dark:text-amber-300 border-amber-200 dark:border-amber-900",
-    swatch: "bg-amber-500",
-    selected: "bg-amber-500 text-white ring-amber-300",
-    border: "border-amber-400",
+    chip: "border border-brand-premium/40 bg-brand-premium/10 text-brand-premium",
+    swatch: "bg-brand-premium",
+    selected: "bg-success text-white ring-success/30",
+    border: "border-brand-premium/70",
   },
   RECLINER: {
     label: "Recliner",
-    chip: "bg-purple-500/10 text-purple-700 dark:text-purple-300 border-purple-200 dark:border-purple-900",
-    swatch: "bg-purple-500",
-    selected: "bg-purple-500 text-white ring-purple-300",
-    border: "border-purple-400",
+    chip: "border border-brand-secondary/40 bg-brand-secondary/10 text-brand-secondary",
+    swatch: "bg-brand-secondary",
+    selected: "bg-success text-white ring-success/30",
+    border: "border-brand-secondary/70",
   },
 }
 
 function seatBg(seat: Seat, isSelected: boolean) {
-  const style = CATEGORY_STYLES[seat.seatCategory] ?? CATEGORY_STYLES.REGULAR
   if (seat.status === "BOOKED")
-    return "bg-muted text-muted-foreground cursor-not-allowed opacity-40 border border-border"
+    return "border border-border bg-surface-secondary text-muted-foreground cursor-not-allowed opacity-45"
   if (seat.status === "LOCKED")
-    return "bg-destructive/20 text-destructive cursor-not-allowed opacity-60 border border-destructive/40"
+    return "border border-error/70 bg-error text-white cursor-not-allowed opacity-80"
   if (isSelected)
-    return `${style.selected} ring-2 ring-offset-1 ring-offset-background cursor-pointer`
-  return `border ${style.border} bg-card text-foreground hover:scale-110 cursor-pointer transition-transform`
+    return "border border-success bg-success text-white ring-2 ring-success/30 ring-offset-1 ring-offset-background cursor-pointer"
+  return "border border-border bg-surface-secondary text-white-soft transition-[transform,background-color,border-color,box-shadow] duration-200 ease-out hover:-translate-y-0.5 hover:border-brand-secondary hover:bg-surface-hover hover:shadow-[0_0_0_1px_rgba(247,181,56,0.18)] cursor-pointer"
 }
 
 type BookingStep = "select" | "locking" | "confirming" | "done" | "error"
@@ -208,14 +207,14 @@ export function SeatSelector({ showId, cityId }: { showId: number; cityId: numbe
   if (isLoading) {
     return (
       <div className="flex min-h-[40vh] items-center justify-center">
-        <Loader2 className="size-8 animate-spin text-primary" />
+        <Loader2 className="size-8 animate-spin text-brand-secondary" />
       </div>
     )
   }
 
   if (error) {
     return (
-      <div className="flex flex-col items-center gap-4 rounded-xl border border-border bg-card p-10 text-center">
+      <div className="flex flex-col items-center gap-4 rounded-xl border border-border bg-surface-primary p-10 text-center">
         <AlertCircle className="size-8 text-destructive" />
         <p className="text-sm text-muted-foreground">
           {error instanceof ApiError ? error.message : "Failed to load seat layout."}
@@ -233,8 +232,8 @@ export function SeatSelector({ showId, cityId }: { showId: number; cityId: numbe
   // Done state
   if (step === "done") {
     return (
-      <div className="mx-auto flex max-w-md flex-col items-center gap-6 rounded-2xl border border-border bg-card p-8 text-center shadow-sm">
-        <span className="flex size-16 items-center justify-center rounded-full bg-emerald-100 text-emerald-600 dark:bg-emerald-500/20 dark:text-emerald-400">
+      <div className="mx-auto flex max-w-md flex-col items-center gap-6 rounded-2xl border border-border bg-surface-primary p-8 text-center shadow-sm">
+        <span className="flex size-16 items-center justify-center rounded-full bg-success text-white shadow-[0_0_0_4px_rgba(2,70,46,0.18)]">
           <Check className="size-8" />
         </span>
         <div>
@@ -245,13 +244,13 @@ export function SeatSelector({ showId, cityId }: { showId: number; cityId: numbe
             booked.
           </p>
         </div>
-        <div className="w-full rounded-lg border border-border bg-secondary/50 px-4 py-3 text-left">
+        <div className="w-full rounded-lg border border-border bg-surface-secondary/70 px-4 py-3 text-left">
           <p className="text-xs uppercase tracking-wide text-muted-foreground">Seats</p>
           <p className="font-semibold text-foreground">
             {selectedSeats.map((s) => s.seatLabel).join(", ")}
           </p>
           <p className="mt-2 text-xs uppercase tracking-wide text-muted-foreground">Total</p>
-          <p className="text-lg font-bold text-primary">₹{totalPrice.toFixed(2)}</p>
+          <p className="text-lg font-bold text-brand-premium">₹{totalPrice.toFixed(2)}</p>
         </div>
         {bookingId && (
           <p className="text-xs text-muted-foreground">
@@ -284,21 +283,21 @@ export function SeatSelector({ showId, cityId }: { showId: number; cityId: numbe
       </div>
 
       {/* Legend */}
-      <div className="flex flex-wrap items-center gap-x-5 gap-y-2 rounded-lg border border-border bg-card p-3 text-xs">
+      <div className="flex flex-wrap items-center gap-x-5 gap-y-2 rounded-lg border border-border bg-surface-primary p-3 text-xs">
         <span className="flex items-center gap-1.5">
-          <span className="size-4 rounded border border-border bg-card" />
+          <span className="size-4 rounded border border-border bg-surface-secondary" />
           Available
         </span>
         <span className="flex items-center gap-1.5">
-          <span className="size-4 rounded bg-primary" />
+          <span className="size-4 rounded bg-success" />
           Selected
         </span>
         <span className="flex items-center gap-1.5">
-          <span className="size-4 rounded bg-muted opacity-40" />
+          <span className="size-4 rounded bg-error" />
           Booked
         </span>
         <span className="flex items-center gap-1.5">
-          <span className="size-4 rounded bg-destructive/20" />
+          <span className="size-4 rounded bg-brand-premium" />
           Locked
         </span>
       </div>
@@ -384,14 +383,14 @@ export function SeatSelector({ showId, cityId }: { showId: number; cityId: numbe
           <path
             d="M 10 10 Q 200 48 390 10 L 390 14 Q 200 52 10 14 Z"
             fill="url(#screenGrad)"
-            className="text-primary"
+            className="text-white-soft"
           />
           <path
             d="M 10 10 Q 200 48 390 10"
             stroke="currentColor"
             strokeWidth="2"
             fill="none"
-            className="text-primary"
+            className="text-white-soft"
           />
         </svg>
         <p className="text-[11px] font-medium uppercase tracking-[0.2em] text-muted-foreground">
@@ -401,7 +400,7 @@ export function SeatSelector({ showId, cityId }: { showId: number; cityId: numbe
 
       {/* Booking bar */}
       {selected.size > 0 && step === "select" && !authPromptOpen && (
-        <div className="sticky bottom-4 z-40 mx-auto flex w-full max-w-3xl items-center justify-between gap-4 rounded-2xl border border-border bg-card/95 p-4 shadow-2xl backdrop-blur">
+        <div className="sticky bottom-4 z-40 mx-auto flex w-full max-w-3xl items-center justify-between gap-4 rounded-2xl border border-border bg-surface-primary/95 p-4 shadow-2xl backdrop-blur">
           <div className="min-w-0 flex-1">
             <p className="truncate text-sm font-medium text-foreground">
               {selected.size} seat{selected.size > 1 ? "s" : ""} ·{" "}
@@ -409,14 +408,14 @@ export function SeatSelector({ showId, cityId }: { showId: number; cityId: numbe
             </p>
             <p className="text-lg font-bold text-foreground">₹{totalPrice.toFixed(2)}</p>
           </div>
-          <Button onClick={handleBooking} className="h-11 px-6">
+          <Button onClick={() => void handleBooking()} className="h-11 px-6">
             Book Now
           </Button>
         </div>
       )}
 
       {selected.size > 0 && step === "select" && authPromptOpen && (
-        <div className="sticky bottom-4 z-40 mx-auto flex w-full max-w-3xl flex-col gap-4 rounded-2xl border border-border bg-card/95 p-5 shadow-2xl backdrop-blur">
+        <div className="sticky bottom-4 z-40 mx-auto flex w-full max-w-3xl flex-col gap-4 rounded-2xl border border-border bg-surface-primary/95 p-5 shadow-2xl backdrop-blur">
           <div className="flex flex-col gap-1">
             <p className="text-sm font-medium text-foreground">Sign in to confirm booking</p>
             <p className="text-sm text-muted-foreground">
@@ -451,8 +450,8 @@ export function SeatSelector({ showId, cityId }: { showId: number; cityId: numbe
 
       {/* Processing states */}
       {(step === "locking" || step === "confirming") && (
-        <div className="flex flex-col items-center gap-3 rounded-xl border border-border bg-card p-8 text-center">
-          <Loader2 className="size-8 animate-spin text-primary" />
+        <div className="flex flex-col items-center gap-3 rounded-xl border border-border bg-surface-primary p-8 text-center">
+          <Loader2 className="size-8 animate-spin text-brand-secondary" />
           <p className="font-medium text-foreground">
             {step === "locking" ? "Locking your seats…" : "Confirming your booking…"}
           </p>
@@ -464,8 +463,8 @@ export function SeatSelector({ showId, cityId }: { showId: number; cityId: numbe
 
       {/* Error state with detailed diagnostics */}
       {step === "error" && (
-        <div className="flex flex-col items-center gap-4 rounded-xl border border-destructive/30 bg-destructive/5 p-8 text-center">
-          <ShieldAlert className="size-10 text-destructive" />
+        <div className="flex flex-col items-center gap-4 rounded-xl border border-error/30 bg-error/5 p-8 text-center">
+          <ShieldAlert className="size-10 text-error" />
           <div className="flex flex-col gap-1">
             <p className="text-lg font-semibold text-foreground">Booking failed</p>
             <p className="text-sm text-muted-foreground">
@@ -478,7 +477,7 @@ export function SeatSelector({ showId, cityId }: { showId: number; cityId: numbe
             )}
           </div>
           {bookingError?.includes("status 403") || bookingError?.includes("status 401") ? (
-            <div className="w-full max-w-sm rounded-lg border border-border bg-background p-3 text-left">
+            <div className="w-full max-w-sm rounded-lg border border-border bg-surface-primary p-3 text-left">
               <p className="text-xs font-medium text-foreground">What to try:</p>
               <ul className="mt-1 space-y-1 text-xs text-muted-foreground">
                 <li>• Sign out and sign back in to refresh your session</li>

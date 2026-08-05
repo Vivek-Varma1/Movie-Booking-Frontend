@@ -165,7 +165,7 @@ export function OtpLoginForm({
                 placeholder="you@example.com"
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
-                className="h-12 w-full rounded-lg border border-border bg-background pl-11 pr-4 text-base text-foreground outline-none transition-colors placeholder:text-muted-foreground focus:border-primary focus:ring-2 focus:ring-primary/40"
+                className="h-12 w-full rounded-lg border border-border bg-surface-primary pl-11 pr-4 text-base text-foreground outline-none transition-colors placeholder:text-muted-foreground focus:border-info focus:ring-2 focus:ring-info/40"
                 aria-describedby={error ? "auth-error" : undefined}
               />
             </div>
@@ -237,7 +237,7 @@ export function OtpLoginForm({
                   onChange={(e) => handleOtpChange(i, e.target.value)}
                   onKeyDown={(e) => handleOtpKeyDown(i, e)}
                   aria-label={`Digit ${i + 1}`}
-                  className="size-12 flex-1 rounded-lg border border-border bg-background text-center text-xl font-semibold text-foreground outline-none transition-colors focus:border-primary focus:ring-2 focus:ring-primary/40 disabled:opacity-60"
+                  className="size-12 flex-1 rounded-lg border border-border bg-surface-primary text-center text-xl font-semibold text-foreground outline-none transition-colors focus:border-info focus:ring-2 focus:ring-info/40 disabled:opacity-60"
                 />
               ))}
             </div>
@@ -246,7 +246,7 @@ export function OtpLoginForm({
           {error ? (
             <p role="alert" className="text-sm text-destructive">{error}</p>
           ) : info ? (
-            <p className="text-sm text-primary">{info}</p>
+            <p className="text-sm text-info">{info}</p>
           ) : null}
 
           <Button
@@ -276,7 +276,7 @@ export function OtpLoginForm({
                 type="button"
                 onClick={() => handleSendOtp()}
                 disabled={loading}
-                className="font-medium text-primary underline-offset-4 transition-colors hover:underline disabled:opacity-60"
+                className="font-medium text-info underline-offset-4 transition-colors hover:text-brand-secondary hover:underline disabled:opacity-60"
               >
                 Resend code
               </button>
