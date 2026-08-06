@@ -1,5 +1,6 @@
-@import "tailwindcss";
 
+/* @import "../../node_modules/tailwindcss/index.css"; */
+@import "tailwindcss";
 :root {
   color-scheme: dark;
 
@@ -42,50 +43,6 @@
   --radius-md: 0.5rem;
   --radius-lg: 0.625rem;
   --radius-xl: 0.75rem;
-}
-
-@theme inline {
-  --color-brand-primary: var(--color-brand-primary);
-  --color-brand-secondary: var(--color-brand-secondary);
-  --color-brand-premium: var(--color-brand-premium);
-  --color-success: var(--color-success);
-  --color-error: var(--color-error);
-  --color-info: var(--color-info);
-  --color-white-soft: var(--color-white-soft);
-  --color-cloud: var(--color-cloud);
-
-  --color-surface-background: var(--surface-background);
-  --color-surface-primary: var(--surface-primary);
-  --color-surface-secondary: var(--surface-secondary);
-  --color-surface-hover: var(--surface-hover);
-  --color-surface-elevated: var(--surface-elevated);
-
-  --color-text-primary: var(--text-primary);
-  --color-text-secondary: var(--text-secondary);
-  --color-text-muted: var(--text-muted);
-  --color-text-disabled: var(--text-disabled);
-
-  --color-border-default: var(--border-default);
-  --color-border-light: var(--border-light);
-
-  --color-background: var(--surface-background);
-  --color-foreground: var(--text-primary);
-  --color-card: var(--surface-primary);
-  --color-card-foreground: var(--text-primary);
-  --color-popover: var(--surface-primary);
-  --color-popover-foreground: var(--text-primary);
-  --color-primary: var(--color-brand-secondary);
-  --color-primary-foreground: var(--surface-background);
-  --color-secondary: var(--surface-secondary);
-  --color-secondary-foreground: var(--color-white-soft);
-  --color-muted: var(--surface-secondary);
-  --color-muted-foreground: var(--text-secondary);
-  --color-accent: var(--surface-hover);
-  --color-accent-foreground: var(--text-primary);
-  --color-destructive: var(--color-error);
-  --color-border: var(--border-default);
-  --color-input: var(--surface-primary);
-  --color-ring: var(--color-info);
 }
 
 * {
