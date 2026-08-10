@@ -75,3 +75,26 @@ body {
 :where(button, a):where([data-primary-cta="true"]):focus-visible {
   box-shadow: 0 0 0 4px rgba(1, 69, 242, 0.18);
 }
+
+.seat-layout-scroll {
+  scrollbar-width: thin;
+  scrollbar-color: #4a4a4a #1a1a1a;
+  max-height: min(62vh, 560px);
+  overscroll-behavior: contain;
+}
+
+.seat-layout-scroll::-webkit-scrollbar {
+  width: 10px;
+  height: 10px;
+}
+
+.seat-layout-scroll::-webkit-scrollbar-track {
+  background: #1a1a1a;
+  border-radius: 9999px;
+}
+
+.seat-layout-scroll::-webkit-scrollbar-thumb {
+  background: #4a4a4a;
+  border-radius: 9999px;
+  border: 2px solid #1a1a1a;
+}

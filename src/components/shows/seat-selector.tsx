@@ -28,35 +28,19 @@ import { getCurrentUser, type AuthUser } from "@/lib/auth"
 
 const CATEGORY_STYLES: Record<
   SeatCategory,
-  { label: string; chip: string; swatch: string; selected: string; border: string }
+  { label: string }
 > = {
   REGULAR: {
     label: "Regular",
-    chip: "border border-border bg-surface-secondary text-white-soft",
-    swatch: "bg-white-soft",
-    selected: "bg-success text-white ring-success/30",
-    border: "border-border",
   },
   PREMIUM: {
     label: "Premium",
-    chip: "border border-info/30 bg-info/10 text-info",
-    swatch: "bg-info",
-    selected: "bg-success text-white ring-success/30",
-    border: "border-info/60",
   },
   VIP: {
     label: "VIP",
-    chip: "border border-brand-premium/40 bg-brand-premium/10 text-brand-premium",
-    swatch: "bg-brand-premium",
-    selected: "bg-success text-white ring-success/30",
-    border: "border-brand-premium/70",
   },
   RECLINER: {
     label: "Recliner",
-    chip: "border border-brand-secondary/40 bg-brand-secondary/10 text-brand-secondary",
-    swatch: "bg-brand-secondary",
-    selected: "bg-success text-white ring-success/30",
-    border: "border-brand-secondary/70",
   },
 }
 
@@ -282,6 +266,15 @@ export function SeatSelector({ showId, cityId }: { showId: number; cityId: numbe
         </p>
       </div>
 
+      <div className="flex flex-wrap items-center gap-3 rounded-lg border border-border bg-surface-primary/60 p-3 text-sm">
+        <span className="rounded-md border border-border px-3 py-1.5 font-medium text-foreground">
+          {data.showDate}
+        </span>
+        <span className="rounded-md border border-brand-secondary bg-brand-secondary/10 px-3 py-1.5 font-semibold text-brand-secondary">
+          {data.showSlot}
+        </span>
+      </div>
+
       {/* Legend */}
       <div className="flex flex-wrap items-center gap-x-5 gap-y-2 rounded-lg border border-border bg-surface-primary p-3 text-xs">
         <span className="flex items-center gap-1.5">
@@ -302,101 +295,93 @@ export function SeatSelector({ showId, cityId }: { showId: number; cityId: numbe
         </span>
       </div>
 
-      {/* Seat groups */}
-      <div className="flex flex-col gap-8">
-        {groups.map((group, idx) => {
-          const style = CATEGORY_STYLES[group.category]
-          return (
-            <div key={`${group.category}-${idx}`} className="flex flex-col gap-3">
-              {/* Category heading */}
-              <div className="flex flex-wrap items-center justify-between gap-2">
-                <div className="flex items-center gap-2">
-                  <span
-                    className={`inline-flex items-center gap-1.5 rounded-full border px-3 py-1 text-xs font-semibold ${style.chip}`}
-                  >
-                    <span className={`size-2 rounded-full ${style.swatch}`} />
-                    {style.label}
-                  </span>
-                  <span className="text-xs text-muted-foreground">
-                    {group.rows.length} row{group.rows.length > 1 ? "s" : ""}
-                  </span>
-                </div>
-                <span className="text-xs font-medium text-muted-foreground">
-                  {group.priceRange.min === group.priceRange.max
-                    ? `₹${group.priceRange.min.toFixed(0)}`
-                    : `₹${group.priceRange.min.toFixed(0)} – ₹${group.priceRange.max.toFixed(0)}`}
-                </span>
-              </div>
+      {/* Seat groups + in-scroll screen indicator */}
+      <div className="seat-layout-scroll overflow-auto rounded-lg border border-border bg-surface-primary/40 p-4">
+        <div className="min-w-max space-y-8 pr-4">
+          {groups.map((group, idx) => {
+            const style = CATEGORY_STYLES[group.category]
+            return (
+              <div key={`${group.category}-${idx}`} className="flex flex-col gap-3">
+                <div className="text-center text-[30px] leading-none text-muted-foreground/20">·</div>
+                <h3 className="text-lg font-bold uppercase tracking-wide text-foreground">
+                  {style.label} Class : ₹{group.priceRange.min.toFixed(0)}
+                </h3>
 
-              {/* Rows in this category — Row A at top, last row at bottom */}
-              <div className="overflow-x-auto">
-                <div className="mx-auto w-fit space-y-1.5 px-4">
+                <div className="space-y-2">
                   {group.rows.map((row) => (
-                    <div key={row.row} className="flex items-center gap-2">
-                      <span className="w-6 text-center text-xs font-semibold text-muted-foreground">
+                    <div key={row.row} className="flex min-w-max items-center gap-3">
+                      <span className="w-7 text-center text-sm font-semibold text-muted-foreground">
                         {row.row}
                       </span>
-                      <div className="flex flex-wrap gap-1.5">
-                        {row.seats.map((seat) => {
+                      <div className="flex flex-nowrap gap-2">
+                        {row.seats.map((seat, idx) => {
                           const isSelected = selected.has(seat.showSeatId)
+                          const addAisleGap = idx > 0 && idx % 10 === 0
                           return (
-                            <button
-                              key={seat.showSeatId}
-                              type="button"
-                              onClick={() => toggleSeat(seat)}
-                              disabled={seat.status !== "AVAILABLE" || step !== "select"}
-                              title={`${seat.seatLabel} — ${CATEGORY_STYLES[seat.seatCategory]?.label ?? seat.seatCategory} — ₹${seat.price}${seat.status !== "AVAILABLE" ? ` (${seat.status})` : ""}`}
-                              className={`flex size-8 items-center justify-center rounded-md text-[10px] font-medium ${seatBg(seat, isSelected)}`}
-                            >
-                              {seat.seatNumber}
-                            </button>
+                            <div key={seat.showSeatId} className={addAisleGap ? "ml-5" : ""}>
+                              <button
+                                type="button"
+                                onClick={() => toggleSeat(seat)}
+                                disabled={seat.status !== "AVAILABLE" || step !== "select"}
+                                title={`${seat.seatLabel} — ${CATEGORY_STYLES[seat.seatCategory]?.label ?? seat.seatCategory} — ₹${seat.price}${seat.status !== "AVAILABLE" ? ` (${seat.status})` : ""}`}
+                                className={`flex size-8 items-center justify-center rounded-md text-[10px] font-medium ${seatBg(seat, isSelected)}`}
+                              >
+                                {seat.seatNumber}
+                              </button>
+                            </div>
                           )
                         })}
                       </div>
-                      <span className="w-6 text-center text-xs font-semibold text-muted-foreground">
+                      <span className="w-7 text-center text-sm font-semibold text-muted-foreground">
                         {row.row}
                       </span>
                     </div>
                   ))}
                 </div>
               </div>
-            </div>
-          )
-        })}
+            )
+          })}
+
+          {/* Curved screen graphic should appear after seat rows, inside the same scroll area */}
+          <div className="flex min-w-full items-center justify-center pt-5 pb-2">
+            <svg
+              viewBox="0 0 1200 210"
+              className="w-[90%] min-w-[820px]"
+              preserveAspectRatio="none"
+              aria-hidden="true"
+            >
+              <defs>
+                <linearGradient id="curvedScreenFill" x1="0" y1="0" x2="0" y2="1">
+                  <stop offset="0%" stopColor="#b9acf8" stopOpacity="0.95" />
+                  <stop offset="100%" stopColor="#9b88ff" stopOpacity="0.88" />
+                </linearGradient>
+              </defs>
+
+              <path
+                d="M 24 64 Q 600 116 1176 64 L 1176 162 Q 600 210 24 162 Z"
+                fill="url(#curvedScreenFill)"
+              />
+              <path
+                d="M 24 64 Q 600 116 1176 64"
+                stroke="#9b88ff"
+                strokeWidth="16"
+                fill="none"
+              />
+              <path
+                d="M 24 128 Q 600 176 1176 128"
+                stroke="#efeaff"
+                strokeOpacity="0.65"
+                strokeWidth="4"
+                fill="none"
+              />
+            </svg>
+          </div>
+        </div>
       </div>
 
-      {/* Curved screen at the bottom (near the last row) */}
-      <div className="flex flex-col items-center gap-3 pt-2">
-        <svg
-          viewBox="0 0 400 50"
-          className="h-10 w-full max-w-xl"
-          preserveAspectRatio="none"
-          aria-hidden="true"
-        >
-          <defs>
-            <linearGradient id="screenGrad" x1="0" y1="0" x2="0" y2="1">
-              <stop offset="0%" stopColor="currentColor" stopOpacity="0.05" />
-              <stop offset="100%" stopColor="currentColor" stopOpacity="0.3" />
-            </linearGradient>
-          </defs>
-          {/* Curved screen: arc from top-left, down in the middle, back up to top-right */}
-          <path
-            d="M 10 10 Q 200 48 390 10 L 390 14 Q 200 52 10 14 Z"
-            fill="url(#screenGrad)"
-            className="text-white-soft"
-          />
-          <path
-            d="M 10 10 Q 200 48 390 10"
-            stroke="currentColor"
-            strokeWidth="2"
-            fill="none"
-            className="text-white-soft"
-          />
-        </svg>
-        <p className="text-[11px] font-medium uppercase tracking-[0.2em] text-muted-foreground">
-          Screen this way
-        </p>
-      </div>
+      <p className="text-center text-[11px] font-medium uppercase tracking-[0.2em] text-muted-foreground">
+        Screen this way
+      </p>
 
       {/* Booking bar */}
       {selected.size > 0 && step === "select" && !authPromptOpen && (
