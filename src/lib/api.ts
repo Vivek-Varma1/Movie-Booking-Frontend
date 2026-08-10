@@ -19,8 +19,8 @@ export class ApiError extends Error {
   }
 }
 
-type Json = Record<string, unknown> | unknown[]
-
+// type Json = Record<string, unknown> | unknown[]
+type Json = unknown
 async function request<T>(
   path: string,
   options: RequestInit & { json?: Json } = {},
